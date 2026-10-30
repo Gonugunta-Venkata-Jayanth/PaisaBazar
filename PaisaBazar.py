@@ -25,12 +25,13 @@ Let's start by loading and getting a first look at the data.
 Fixed, runnable PaisaBazar script.
 Changes:
  - corrected function signatures / return types
- - robust file path (absolute), stratify fallback
+ - dataset path given on the command line (default: data/paisa_bazar_loan_dataset.csv), stratify fallback
  - added simple EDA prints (head, tail, describe, missing, duplicates)
  - safe encoding and scaling
  - robust training/evaluation and saving best model
  - minimal plotting disabled if headless
 """
+import argparse
 import os
 import sys
 import pickle
@@ -59,7 +60,7 @@ def load_data(path: str) -> pd.DataFrame:
         print(f"Loaded dataset: {path} -> shape {df.shape}")
         return df
     except FileNotFoundError:
-        print(f"Error: file not found at '{path}'. Update path or place CSV there.")
+        print(f"Error: file not found at '{path}'. Pass --data <path to CSV> or place it at {DEFAULT_DATA_PATH}.")
         sys.exit(1)
 
 
@@ -225,9 +226,19 @@ def plot_accuracy(results: Dict[str, dict]) -> None:
         pass
 
 
-def main():
-    csv_path = os.path.join('d:\\', 'Internships', 'labmentix', 'paisa_bazar_loan_dataset.csv')
-    df = load_data(csv_path)
+DEFAULT_DATA_PATH = os.path.join('data', 'paisa_bazar_loan_dataset.csv')
+
+
+def parse_args(argv=None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Train and compare credit score classifiers on the Paisabazaar dataset.")
+    parser.add_argument('--data', default=DEFAULT_DATA_PATH,
+                        help=f"Path to the dataset CSV (default: {DEFAULT_DATA_PATH})")
+    return parser.parse_args(argv)
+
+
+def main(argv=None):
+    args = parse_args(argv)
+    df = load_data(args.data)
 
     X_train, X_test, X_train_scaled, X_test_scaled, y_train, y_test, scaler = preprocess(df)
 

@@ -20,3 +20,6 @@ Thumbs.db
 loan_model.pkl
 model_columns.pkl
 scaler.pkl
+
+# Dataset (not distributed with the repo)
+data/
