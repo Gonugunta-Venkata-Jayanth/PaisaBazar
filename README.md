@@ -73,8 +73,9 @@ flowchart LR
 
 ```
 PaisaBazar/
-├── PaisaBazar              # Python script (exported from the "Paisa Bazar.ipynb" notebook)
+├── PaisaBazar.py           # Python script (exported from the "Paisa Bazar.ipynb" notebook)
 ├── bar graph result.png    # Model accuracy comparison chart
+├── requirements.txt
 └── README.md
 ```
 
@@ -83,15 +84,16 @@ PaisaBazar/
 ```bash
 git clone https://github.com/Gonugunta-Venkata-Jayanth/PaisaBazar.git
 cd PaisaBazar
-pip install pandas numpy scikit-learn matplotlib seaborn
+pip install -r requirements.txt
 ```
 
-1. Get `paisa_bazar_loan_dataset.csv` and put it somewhere on your machine.
-2. Open the `PaisaBazar` script and change `csv_path` in `main()` (it currently points to a local Windows path) to your file's location.
-3. Run it:
+1. Get `paisa_bazar_loan_dataset.csv` and put it in a `data/` folder inside the repository (`data/` is git-ignored).
+2. Run the script from the repository folder:
 
 ```bash
-python PaisaBazar
+python PaisaBazar.py
+# or point it at the CSV anywhere on disk
+python PaisaBazar.py --data path/to/paisa_bazar_loan_dataset.csv
 ```
 
 **Outputs:** EDA and per-model reports in the console, an accuracy comparison chart, and these files: `loan_model.pkl`, `model_columns.pkl`, and `scaler.pkl` (only when the best model is a scaled one).
