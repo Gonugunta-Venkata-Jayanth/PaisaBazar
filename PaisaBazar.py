@@ -14,7 +14,7 @@ The project follows a structured approach:
 
 **Technical Stack:**
 * **Languages:** Python
-* **Libraries:** Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, Plotly
+* **Libraries:** Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn
 
 ## 2. Exploration: Head, Tail, Summary, Data Dictionary
 
